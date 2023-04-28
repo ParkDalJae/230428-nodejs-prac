@@ -1,0 +1,25 @@
+{
+  "name": "230428-nodejs-prac",
+  "version": "1.0.0",
+  "description": "npm 모듈 관련 정기 평가",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ParkDalJae/230428-nodejs-prac.git"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ParkDalJae/230428-nodejs-prac/issues"
+  },
+  "homepage": "https://github.com/ParkDalJae/230428-nodejs-prac#readme",
+  "dependencies": {
+    "commander": "^10.0.1",
+    "inquirer": "^9.2.0"
+  }
+}
