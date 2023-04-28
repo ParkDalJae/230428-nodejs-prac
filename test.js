@@ -10,33 +10,48 @@
 
 import inquirer from "inquirer";
 import { program } from "commander";
-function htmlMaker(fileName, fileTitleTag, useDivIdRoot, writeContentPTag) {
-  let useDivTag = function () {
-    if (useDivIdRoot === "Y") {
-      return `<div id= "root"><p>${writeContentPTag}</p></div>`;
-    } else if (useDivIdRoot === "N") {
-      return `<p>${writeContentPTag}</p>`;
-    }
-  };
 
-  let htmlString = `
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>${fileTitleTag}</title>
-    </head>
-    <body>${useDivTag}</body>
-  </html>
-  `;
-}
 inquirer
   .prompt([
-    {}, //파일명
-    {}, //제목
-    {}, //div#root 사용여부
-    {}, //내용
+    { type: "input", name: "fileName", message: "파일 이름을 입력하세요:" }, //파일명
+    {
+      type: "input",
+      name: "fileTitleTag",
+      message: "타이틀 제목을 입력하세요:",
+    }, //타이틀 제목
+    {
+      type: "list",
+      name: "useDivIdRoot",
+      message: "DIV#root를 사용하시겠습니까?",
+      choices: ["예", "아니오"],
+    }, //DIV#root 사용 여부
+    {
+      type: "input",
+      name: "writeContentPTag",
+      message: "본문 내용을 입력하세요:",
+    }, //본문 내용
   ])
-  .then((answers) => {});
+  .then((answers) => {
+    function choiceDiv() {
+      if (answers.useDivIdRoot === "예") {
+        return `<div id= "root"><p>${answers.writeContentPTag}</p></div>`;
+      } else if (answers.useDivIdRoot === "아니오") {
+        return `<p>${answers.writeContentPTag}</p>`;
+      }
+    }
+    let useDivTag = choiceDiv();
+    let htmlString = `
+      <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <title>${answers.fileTitleTag}</title>
+        </head>
+        <body>${useDivTag}</body>
+      </html>
+      `;
+    console.log(answers.fileName, answers.useDivIdRoot, useDivTag);
+    console.log("./result/" + answers.fileName + ".html", htmlString);
+  });
